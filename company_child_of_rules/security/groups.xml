@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+    <data>
+        <record model="res.groups" id="group_journals_by_user_restrict">
+            <field name="name">Restricción de Diarios Permitidos</field>
+        </record>
+
+        <record id="ir_rule_journals_by_users_restrict" model="ir.rule">
+            <field name="name">Restricción de Diarios por Usuario para Facturas</field>
+            <field name="model_id" ref="model_account_move"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="super_rule">True</field>
+            <field eval="False" name="global"/>
+            <field name="domain_force">[('journal_id', 'in',[w.id for w in user.journal_ids])]</field>
+            <field name="groups" eval="[(4,ref('ps_restrict_journal.group_journals_by_user_restrict'))]"/>
+        </record>
+
+    </data>
+</openerp>

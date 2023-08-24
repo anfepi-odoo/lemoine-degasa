@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!-- <record id="res_company_restrict_inherit_form_view" model="ir.ui.view">
+			<field name="name">ir.rule.inherit.form.view</field>
+			<field name="model">ir.rule</field>
+			<field name="inherit_id" ref="base.view_rule_form"/>
+			<field name="arch" type="xml">
+				<field name="active" position="after">
+					<field name="multi_company_rule"/>
+				</field>
+			</field>
+		</record> -->
+
+
+	</data>
+</odoo>

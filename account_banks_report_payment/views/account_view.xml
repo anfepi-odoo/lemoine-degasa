@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Reporte de Operaciones Bancarias -->
+
+        <record id="account_move_bank_report_tree" model="ir.ui.view">
+            <field name="name">account.move.bank.report.data.tree</field>
+            <field name="model">account.move.bank.report.data</field>
+            <field name="arch" type="xml">
+                <tree string="Reporte de Operaciones Bancarias" >
+                    <field name="payment_type" readonly="1"/>
+                    <field name="journal_id" readonly="1"/>
+                    <field name="move_id" readonly="1"/>
+                    <field name="payment_id" readonly="1" optional="hide"/>
+                    <field name="statement_id" readonly="1" optional="hide"/>
+                    <field name="payment_currency_id" readonly="1"/>
+                    <field name="payment_date" readonly="1"/>
+                    <field name="payment_reference" readonly="1" />
+                    <field name="payment_amount" readonly="1"/>
+                    <field name="iva_amount" readonly="1"/>
+                    <field name="account_origin_id" readonly="1"/>
+                    <field name="partner_id" readonly="1"/>
+                    <field name="invoice_id" readonly="1"/>
+                    <field name="invoice_currency_id" readonly="1"/>
+                    <field name="invoice_date" readonly="1"/>
+                    <field name="invoice_amount" readonly="1"/>
+                    <field name="reference" readonly="1"/>
+                    <field name="uuid" readonly="1"/>
+                    <field name="company_id" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_move_bank_report_form" model="ir.ui.view">
+            <field name="name">account.move.bank.report.data.form</field>
+            <field name="model">account.move.bank.report.data</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Operaciones Bancarias">
+                    <sheet>
+                        <group>
+                            <field name="payment_type" readonly="1"/>
+                            <field name="journal_id" readonly="1"/>
+                            <field name="move_id" readonly="1"/>
+                            <field name="payment_id" readonly="1"/>
+                            <field name="statement_id" readonly="1" />
+                            <field name="payment_currency_id" readonly="1"/>
+                            <field name="payment_date" readonly="1"/>
+                            <field name="payment_reference" readonly="1" />
+                            <field name="payment_amount" readonly="1"/>
+                            <field name="iva_amount" readonly="1"/>
+                            <field name="account_origin_id" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="invoice_id" readonly="1"/>
+                            <field name="invoice_currency_id" readonly="1"/>
+                            <field name="invoice_date" readonly="1"/>
+                            <field name="invoice_amount" readonly="1"/>
+                            <field name="reference" readonly="1"/>
+                            <field name="uuid" readonly="1"/>
+                            <field name="company_id" readonly="1"/>
+                        </group>
+                        
+                    </sheet>
+                    
+                </form>
+            </field>
+        </record>
+
+
+        <record id="account_move_bank_report_search" model="ir.ui.view">
+            <field name="name">account.move.bank.report.data.serch</field>
+            <field name="model">account.move.bank.report.data</field>
+            <field name="arch" type="xml">
+                <search string="Reporte de Operaciones Bancarias">
+                    <field name="payment_type" />
+                    <field name="journal_id" />
+                    <field name="move_id" />
+                    <field name="payment_id" />
+                    <field name="payment_currency_id" />
+                    <field name="payment_date" />
+                    <field name="payment_reference"  />
+                    <field name="payment_amount" />
+                    <field name="iva_amount" />
+                    <field name="account_origin_id" />
+                    <field name="partner_id" />
+                    <field name="invoice_id" />
+                    <field name="invoice_currency_id" />
+                    <field name="invoice_date" />
+                    <field name="invoice_amount" />
+                    <field name="reference" />
+                    <field name="uuid" />
+                    <field name="company_id" readonly="1"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_formas_pago" model="ir.actions.act_window">
+            <field name="name">Reporte de Operaciones Bancarias</field>
+            <field name="res_model">account.move.bank.report.data</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="account_move_bank_report_tree"/>
+        </record>
+
+    <!-- Wizard -->
+
+    <record id="account_move_bank_report_wizard_form" model="ir.ui.view">
+      <field name="name">account.move.bank.report.wizard</field>
+      <field name="model">account.move.bank.report.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Reporte de Operaciones Bancarias">
+            <sheet>
+                <field name="xlsx_ready" invisible="1" />
+                <!-- <group string="Tipo de Reporte">
+                    <field name="report_output" attrs="{'invisible':[('xlsx_ready','=',True)]}" required="1" nolabel="1"/>
+                </group> -->
+                <group string="Periodo" attrs="{'invisible':[('xlsx_ready','=',True)]}">
+                    <group>
+                        <field name="date" />
+                        <field name="include_statements" />
+                    </group>
+                    <group>
+                        <field name="date_stop" />
+                    </group>
+                </group>
+                <group attrs="{'invisible':[('xlsx_ready','=',True)]}">
+                    <field name="journal_ids" widget="many2many_tags" />
+                </group>
+
+                <group attrs="{'invisible':[('xlsx_ready','=',False)]}">
+                    <field name="xlsx_datas_fname" invisible="1"/>
+                    <field name="xlsx_file" readonly="1" filename="xlsx_datas_fname" attrs="{'invisible':[('xlsx_ready','=',False)]}"/>
+                </group>
+
+                <footer attrs="{'invisible':[('xlsx_ready','=',True)]}">
+                    <button name="get_current_report" type="object" string="Generar Reporte" class="oe_highlight" icon="fa-file-pdf-o"/>
+                    <button special="cancel" string="Cancelar" type="object" class="oe_link oe_inline" icon="fa-window-close"/>
+                </footer>
+                <footer attrs="{'invisible':[('xlsx_ready','=',False)]}">
+                    <button special="cancel" string="Cerrar" type="object" class="oe_link oe_inline" icon="fa-window-close"/>
+                </footer>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="account_move_bank_report_wizard_act" model="ir.actions.act_window">
+        <field name="name">Reporte de Operaciones Bancarias</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.move.bank.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context"></field>        
+    </record>
+      
+    <menuitem id="account_move_bank_report_wizard_menu_root"
+              name="Reportes Bancarios"
+              parent="account.menu_finance_reports"
+              sequence='0'/>
+
+    <menuitem id="account_move_bank_report_wizard_menu"
+              name="Reporte de Operaciones"
+              parent="account_move_bank_report_wizard_menu_root"
+              action="account_move_bank_report_wizard_act" 
+              sequence='0'/>
+
+
+    </data>
+</odoo>
