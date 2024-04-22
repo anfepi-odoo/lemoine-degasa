@@ -64,9 +64,15 @@ class AccountAnalyticAccount(models.Model):
                     else:
                         name = account.name + ' [' + account.company_id.name + ']'
                 else:
-                    name = account.code + ' ' + account.name
+                    if account.code:
+                        name = account.code 
+                    if account.name:
+                        name = name + ' ' + account.name
             else:
-                name = account.code + ' ' + account.name
+                if account.code:
+                    name = account.code 
+                if account.name:
+                    name = name + ' ' + account.name
             #name = account.code + ' ' + account.name
             result.append((account.id, name))
         return result
