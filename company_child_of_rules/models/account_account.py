@@ -60,15 +60,17 @@ class AccountAnalyticAccount(models.Model):
             if account.company_id:
                 if company_count > 1:
                     if account.code:
-                        name = account.code + ' ' + account.name + ' [' + account.company_id.name + ']'
+                        name = account.code + ' ' + account.name or '' + ' [' + account.company_id.name + ']'
                     else:
-                        name = account.name + ' [' + account.company_id.name + ']'
+                        name = account.name or '' + ' [' + account.company_id.name + ']'
                 else:
+                    name = ''
                     if account.code:
                         name = account.code 
                     if account.name:
                         name = name + ' ' + account.name
             else:
+                name = ''
                 if account.code:
                     name = account.code 
                 if account.name:
