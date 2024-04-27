@@ -35,8 +35,6 @@ _logger = logging.getLogger(__name__)
 class StockMove(models.Model):
     _inherit = "stock.move"
 
-
-
     def _action_confirm(self, merge=True, merge_into=False):
         """ Confirms stock move or put it in waiting if it's linked to another move.
         :param: merge: According to this boolean, a newly confirmed move will be merged
@@ -135,7 +133,7 @@ class StockMove(models.Model):
         #     neg_push_moves._action_confirm(merge_into=neg_push_moves.move_orig_ids.move_dest_ids)
 
         return moves
-        
+
     # def _action_confirm(self, merge=True, merge_into=False):
     #     """ Confirms stock move or put it in waiting if it's linked to another move.
     #     :param: merge: According to this boolean, a newly confirmed move will be merged
